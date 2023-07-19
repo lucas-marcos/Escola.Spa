@@ -9,11 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { EscolaComponent } from './escola/escola.component';
+import { FormsModule } from '@angular/forms';
+import { EscolaModalComponent } from './escola-modal/escola-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EscolaComponent
+    EscolaComponent,
+    EscolaModalComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,8 @@ import { EscolaComponent } from './escola/escola.component';
     MatToolbarModule,
     MatIconModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
