@@ -1,12 +1,12 @@
 <div class="container">
-  <h1 class="mb-4">Lista de Escolas</h1>
+  <h1 class="text-center mb-4">Lista de Escolas</h1>
 
   <!-- Botão para abrir o modal -->
   <button (click)="abrirModal()" class="btn btn-primary mb-4">Adicionar Escola</button>
 
   <!-- Modal -->
   <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': modalAberto }">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Cadastro de Escola</h5>
@@ -15,14 +15,36 @@
           </button>
         </div>
         <div class="modal-body">
-          <!-- Formulário para adicionar ou editar uma escola -->
-          <form (ngSubmit)="salvarEscola()" class="mb-4">
-            <!-- Restante do formulário (mesmo código do exemplo anterior) -->
+
+          <form (ngSubmit)="salvarEscola()">
+            <div class="form-group">
+              <label for="nome">Nome:</label>
+              <input type="text" id="nome" name="nome" [(ngModel)]="escola.nome" required class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="endereco">Endereço:</label>
+              <input type="text" id="endereco" name="endereco" [(ngModel)]="escola.endereco" required class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="telefone">Telefone:</label>
+              <input type="text" id="telefone" name="telefone" [(ngModel)]="escola.telefone" required class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input type="email" id="email" name="email" [(ngModel)]="escola.email" required class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="cnpj">CNPJ:</label>
+              <input type="text" id="cnpj" name="cnpj" [(ngModel)]="escola.cnpj" required class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-success">{{ modoEdicao ? 'Atualizar' : 'Adicionar' }}</button>
+            <button type="button" class="btn btn-secondary" (click)="fecharModal()">Fechar</button>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="fecharModal()">Fechar</button>
-          <button type="submit" class="btn btn-success" (click)="salvarEscola()">Salvar</button>
         </div>
       </div>
     </div>
