@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  height: 100vh; /* Definindo a altura do body como 100% da altura da viewport */
+  display: flex;
+  flex-direction: column;
+}
+.example-container {
+  height: 500px;
+  height: 90vh;
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.example-sidenav-content {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  margin: 24px;
+  background-color: white;
+  padding: 24px;
+}
+
+.example-sidenav {
+   user-select: none;
+   min-width: 220px;
+}
+.full-width {
+  width: 100%;
+}
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+}
+.submenu.expanded {
+  transform: scaleY(1);
+}
