@@ -15,6 +15,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 
 // Terceiros
 import { NgxMaskModule } from 'ngx-mask';
+import { ToastrModule } from 'ngx-toastr';
 
 // Componentes Locais
 import { AppComponent } from './app.component';
@@ -41,7 +42,8 @@ import { EscolaModalComponent } from './escola-modal/escola-modal.component';
     MatListModule,
     MatSidenavModule,
     MatToolbarModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

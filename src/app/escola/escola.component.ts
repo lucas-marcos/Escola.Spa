@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-escola',
@@ -11,7 +12,7 @@ export class EscolaComponent {
   escola: any = { nome: '', endereco: '', telefone: '', email: '', cnpj: '' };
   modoEdicao: boolean = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   salvarEscola() {
     console.log(this.escola);
@@ -31,23 +32,15 @@ export class EscolaComponent {
   realizarRequisicao() {
     const url = 'https://localhost:7009/Escola';
 
-    // Define os dados a serem enviados no corpo da requisição (no formato JSON)
-    const body = {
-      nome: 'string',
-      endereco: 'string',
-      telefone: 'string',
-      email: 'user@example.com',
-      cnpj: '24.657.575/1707-80',
-    };
-debugger
-    // Realiza a requisição POST com os dados definidos
     this.http.post(url, this.escola).subscribe(
       (response) => {
         console.log('Resposta da API:', response);
-        // Faça o que for necessário com os dados da resposta aqui
+        this.toastr.success('Ocorreu um erro na requisição: ' ); // Exibe o toaster com a mensagem de erro
+
       },
       (error) => {
         console.error('Erro na requisição:', error);
+        this.toastr.error('Ocorreu um erro na requisição: ' + error.message); // Exibe o toaster com a mensagem de erro
       }
     );
   }
