@@ -1,56 +1,97 @@
+
 <div class="container">
   <h1 class="mat-h1 text-center mb-4">Lista de Escolas</h1>
 
   <!-- Botão para abrir o modal -->
   <button mat-raised-button color="primary" (click)="abrirModal()" class="mb-4">Adicionar Escola</button>
 
-  <!-- Modal -->
-  <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': modalAberto }">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title mat-h3">Cadastro de Escola</h5>
-          <button type="button" class="close" (click)="fecharModal()">
-            <span>&times;</span>
+
+
+  <!-- Lista de escolas cadastradas (mesmo código do exemplo anterior) -->
+  <div class="container">
+    <!-- <div class="grid-container"> -->
+      <table mat-table [dataSource]="escolas" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="nome">
+          <th mat-header-cell *matHeaderCellDef> Nome </th>
+          <td mat-cell *matCellDef="let escola"> {{ escola.nome }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="endereco">
+          <th mat-header-cell *matHeaderCellDef> Endereço </th>
+          <td mat-cell *matCellDef="let escola"> {{ escola.endereco }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="telefone">
+          <th mat-header-cell *matHeaderCellDef> Telefone </th>
+          <td mat-cell *matCellDef="let escola"> {{ escola.telefone }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef> Email </th>
+          <td mat-cell *matCellDef="let escola"> {{ escola.email }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cnpj">
+          <th mat-header-cell *matHeaderCellDef> Cnpj </th>
+          <td mat-cell *matCellDef="let escola"> {{ escola.cnpj }} </td>
+        </ng-container>
+
+        <!-- Restante do código... -->
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    <!-- </div> -->
+  </div>
+</div>
+
+
+<!-- Modal -->
+<!-- <div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': modalAberto }">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mat-h3">Cadastro de Escola</h5>
+        <button type="button" class="close" (click)="fecharModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form (ngSubmit)="realizarRequisicao()" class="mb-4">
+          <mat-form-field class="form-group col-12">
+            <mat-label>Nome:</mat-label>
+            <input matInput type="text" id="nome" name="nome" [(ngModel)]="escola.nome" required>
+          </mat-form-field>
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>Endereço:</mat-label>
+            <input matInput type="text" id="endereco" name="endereco" [(ngModel)]="escola.endereco" required>
+          </mat-form-field>
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>Telefone:</mat-label>
+            <input matInput type="text" id="telefone" name="telefone" [(ngModel)]="escola.telefone" required>
+          </mat-form-field>
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>Email:</mat-label>
+            <input matInput type="email" id="email" name="email" [(ngModel)]="escola.email" required>
+          </mat-form-field>
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>CNPJ:</mat-label>
+            <input matInput type="text" id="cnpj" name="cnpj" [(ngModel)]="escola.cnpj" required
+              mask="00.000.000/0000-00">
+          </mat-form-field>
+
+          <button type="submit" mat-raised-button color="primary">
+            {{ modoEdicao ? 'Atualizar' : 'Adicionar' }}
           </button>
-        </div>
-        <div class="modal-body">
-
-          <form (ngSubmit)="realizarRequisicao()" class="mb-4">
-            <mat-form-field class="form-group col-12">
-              <mat-label>Nome:</mat-label>
-              <input matInput type="text" id="nome" name="nome" [(ngModel)]="escola.nome" required>
-            </mat-form-field>
-
-            <mat-form-field class="form-group col-12">
-              <mat-label>Endereço:</mat-label>
-              <input matInput type="text" id="endereco" name="endereco" [(ngModel)]="escola.endereco" required>
-            </mat-form-field>
-
-            <mat-form-field class="form-group col-12">
-              <mat-label>Telefone:</mat-label>
-              <input matInput type="text" id="telefone" name="telefone" [(ngModel)]="escola.telefone" required>
-            </mat-form-field>
-
-            <mat-form-field class="form-group col-12">
-              <mat-label>Email:</mat-label>
-              <input matInput type="email" id="email" name="email" [(ngModel)]="escola.email" required>
-            </mat-form-field>
-
-            <mat-form-field class="form-group col-12">
-              <mat-label>CNPJ:</mat-label>
-              <input matInput type="text" id="cnpj" name="cnpj" [(ngModel)]="escola.cnpj" required mask="00.000.000/0000-00">
-            </mat-form-field>
-
-            <button type="submit" mat-raised-button color="primary" >
-              {{ modoEdicao ? 'Atualizar' : 'Adicionar' }}
-            </button>
-            <button type="button" mat-raised-button (click)="fecharModal()">Fechar</button>
-          </form>
-        </div>
+          <button type="button" mat-raised-button (click)="fecharModal()">Fechar</button>
+        </form>
       </div>
     </div>
   </div>
-
-  <!-- Lista de escolas cadastradas (mesmo código do exemplo anterior) -->
-</div>
+</div> -->

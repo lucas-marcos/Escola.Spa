@@ -2,16 +2,19 @@
   <!-- <button mat-icon-button (click)="isExpanded = !isExpanded"><mat-icon>menu</mat-icon></button> -->
   <h1 class="example-app-name">Nested Menus</h1>
 </mat-toolbar>
-<mat-sidenav-container class="example-container" autosize>
+<mat-sidenav-container  class="example-container"  autosize>
   <mat-sidenav #sidenav class="example-sidenav" mode="side" opened="true" (mouseenter)="mouseenter()" (mouseleave)="mouseleave()">
-    <mat-nav-list class="mat-nav-list">
-      <a mat-list-item routerLink="/escola">Escola</a>
+    <mat-nav-list class="mat-nav-list ">
+      <a mat-list-item routerLink="/escola" >Escola</a>
       <a mat-list-item routerLink="/turma">Turma</a>
       <a mat-list-item routerLink="/aluno">Aluno</a>
     </mat-nav-list>
   </mat-sidenav>
 
-  <div class="example-sidenav-content">
-    <router-outlet></router-outlet>
+  <div  >
+    <div style="height: 100vh; width: auto;">
+
+      <router-outlet ></router-outlet>
+    </div>
   </div>
 </mat-sidenav-container>

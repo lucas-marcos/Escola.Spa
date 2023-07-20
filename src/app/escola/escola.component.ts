@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 
@@ -7,12 +7,26 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './escola.component.html',
   styleUrls: ['./escola.component.scss'],
 })
-export class EscolaComponent {
+export class EscolaComponent implements OnInit {
   modalAberto: boolean = false;
-  escola: any = { nome: '', endereco: '', telefone: '', email: '', cnpj: '' };
+  escola: any;
   modoEdicao: boolean = false;
+  escolas: any[] = [];
+
+  displayedColumns: string[] = [
+    'nome',
+    'endereco',
+    'telefone',
+    'email',
+    'cnpj',
+  ];
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
+
+  ngOnInit() {
+    this.escola = { nome: '', endereco: '', telefone: '', email: '', cnpj: '' };
+    this.listarEscolas();
+  }
 
   salvarEscola() {
     console.log(this.escola);
@@ -41,6 +55,24 @@ export class EscolaComponent {
         console.error('Erro na requisição:', error);
         this.toastr.error(
           'Não foi possível cadastrar a esola pelo seguinte motivo: \n' +
+            error.error
+        );
+      }
+    );
+  }
+
+  listarEscolas() {
+    const url = 'https://localhost:7009/Escola';
+
+    this.http.get<any[]>(url).subscribe(
+      (response) => {
+        console.log('Resposta da API:', response);
+        this.escolas = response; // Armazena os dados retornados na variável escolas
+      },
+      (error) => {
+        console.error('Erro na requisição:', error);
+        this.toastr.error(
+          'Não foi possível listar as escolas pelo seguinte motivo: \n' +
             error.error
         );
       }
