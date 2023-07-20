@@ -1,0 +1,51 @@
+<div class="container">
+  <h1 class="mat-h1 text-center mb-4">Lista de Turmas</h1>
+
+  <button mat-raised-button color="primary" (click)="abrirModal()" class="mb-4">Adicionar Turma</button>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': modalAberto }">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mat-h3">Cadastro de Escola</h5>
+        <button type="button" class="close" (click)="fecharModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="realizarRequisicao()" class="mb-4">
+          <mat-form-field class="form-group col-12">
+            <mat-label>Nome:</mat-label>
+            <input matInput type="text" id="nome" name="nome" [(ngModel)]="turma.nome" required>
+          </mat-form-field>
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>Descrição:</mat-label>
+            <input matInput type="text" id="descricao" name="descricao" [(ngModel)]="turma.descricao" required>
+          </mat-form-field>
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>Numero da sala:</mat-label>
+            <input matInput type="text" id="numero" name="numero" [(ngModel)]="turma.numero" required>
+          </mat-form-field>
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>Escola:</mat-label>
+            <mat-select [(ngModel)]="turma.escola" name="escola" required>
+              <mat-option *ngFor="let escola of escolas" [value]="escola">{{ escola }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button type="submit" mat-raised-button color="primary">
+            {{ turma.id > 0 ? 'Atualizar' : 'Adicionar' }}
+          </button>
+          <button type="button" mat-raised-button (click)="fecharModal()">Fechar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

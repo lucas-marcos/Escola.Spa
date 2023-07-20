@@ -13,6 +13,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
+import { MatSelectModule } from '@angular/material/select';
+
 
 // Terceiros
 import { NgxMaskModule } from 'ngx-mask';
@@ -22,13 +24,14 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { EscolaComponent } from './escola/escola.component';
-import { EscolaModalComponent } from './escola-modal/escola-modal.component';
+import { TurmaComponent } from './turma/turma.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent,
     EscolaComponent,
-    EscolaModalComponent,
+    TurmaComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,8 @@ import { EscolaModalComponent } from './escola-modal/escola-modal.component';
     MatSidenavModule,
     MatToolbarModule,
     MatTableModule,
+    MatSelectModule,
+    CommonModule,
     NgxMaskModule.forRoot(),
     ToastrModule.forRoot()
   ],
