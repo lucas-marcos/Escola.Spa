@@ -19,6 +19,7 @@ export class EscolaComponent implements OnInit {
     'telefone',
     'email',
     'cnpj',
+    'acao',
   ];
 
   constructor(private http: HttpClient, private toastr: ToastrService) {}
@@ -50,6 +51,8 @@ export class EscolaComponent implements OnInit {
       (response) => {
         console.log('Resposta da API:', response);
         this.toastr.success('Escola cadastrada com sucesso!');
+        this.listarEscolas();
+        this.fecharModal();
       },
       (error) => {
         console.error('Erro na requisição:', error);
@@ -77,5 +80,13 @@ export class EscolaComponent implements OnInit {
         );
       }
     );
+  }
+
+  editarEscola(escola: any) {
+    console.log('Editar escola:', escola);
+  }
+
+  excluirEscola(escola: any) {
+    console.log('Excluir escola:', escola);
   }
 }
