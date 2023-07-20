@@ -1,6 +1,9 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+
 body {
   margin: 0;
-  height: 100vh; /* Definindo a altura do body como 100% da altura da viewport */
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }

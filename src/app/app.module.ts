@@ -11,6 +11,9 @@ import { MatListModule } from '@angular/material/list';
 import { EscolaComponent } from './escola/escola.component';
 import { FormsModule } from '@angular/forms';
 import { EscolaModalComponent } from './escola-modal/escola-modal.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { EscolaModalComponent } from './escola-modal/escola-modal.component';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
