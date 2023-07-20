@@ -35,12 +35,14 @@ export class EscolaComponent {
     this.http.post(url, this.escola).subscribe(
       (response) => {
         console.log('Resposta da API:', response);
-        this.toastr.success('Ocorreu um erro na requisição: ' ); // Exibe o toaster com a mensagem de erro
-
+        this.toastr.success('Escola cadastrada com sucesso!');
       },
       (error) => {
         console.error('Erro na requisição:', error);
-        this.toastr.error('Ocorreu um erro na requisição: ' + error.message); // Exibe o toaster com a mensagem de erro
+        this.toastr.error(
+          'Não foi possível cadastrar a esola pelo seguinte motivo: \n' +
+            error.error
+        );
       }
     );
   }
