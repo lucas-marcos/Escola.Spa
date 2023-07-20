@@ -25,7 +25,7 @@ export class EscolaComponent implements OnInit {
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   ngOnInit() {
-    this.escola = { nome: '', endereco: '', telefone: '', email: '', cnpj: '' };
+    this.escola = { nome: '', endereco: '', telefone: '', email: '', cnpj: '', id: 0};
     this.listarEscolas();
   }
 
@@ -87,6 +87,21 @@ export class EscolaComponent implements OnInit {
   }
 
   excluirEscola(escola: any) {
-    console.log('Excluir escola:', escola);
+    const url = 'https://localhost:7009/Escola/' + escola.id;
+
+    this.http.delete<any[]>(url).subscribe(
+      (response) => {
+        console.log('Resposta da API:', response);
+        this.toastr.success('Escola removida com sucesso!');
+        this.listarEscolas();
+      },
+      (error) => {
+        console.error('Erro na requisição:', error);
+        this.toastr.error(
+          'Não foi possível deletar a escola pelo seguinte motivo: \n' +
+            error.error
+        );
+      }
+    );
   }
 }
