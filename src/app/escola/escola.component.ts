@@ -10,7 +10,6 @@ import { ToastrService } from 'ngx-toastr';
 export class EscolaComponent implements OnInit {
   modalAberto: boolean = false;
   escola: any;
-  modoEdicao: boolean = false;
   escolas: any[] = [];
 
   displayedColumns: string[] = [
@@ -25,7 +24,14 @@ export class EscolaComponent implements OnInit {
   constructor(private http: HttpClient, private toastr: ToastrService) {}
 
   ngOnInit() {
-    this.escola = { nome: '', endereco: '', telefone: '', email: '', cnpj: '', id: 0};
+    this.escola = {
+      nome: '',
+      endereco: '',
+      telefone: '',
+      email: '',
+      cnpj: '',
+      id: 0,
+    };
     this.listarEscolas();
   }
 
@@ -41,27 +47,45 @@ export class EscolaComponent implements OnInit {
   fecharModal() {
     this.modalAberto = false;
     this.escola = { nome: '', endereco: '', telefone: '', email: '', cnpj: '' };
-    this.modoEdicao = false;
   }
 
   realizarRequisicao() {
     const url = 'https://localhost:7009/Escola';
 
-    this.http.post(url, this.escola).subscribe(
-      (response) => {
-        console.log('Resposta da API:', response);
-        this.toastr.success('Escola cadastrada com sucesso!');
-        this.listarEscolas();
-        this.fecharModal();
-      },
-      (error) => {
-        console.error('Erro na requisição:', error);
-        this.toastr.error(
-          'Não foi possível cadastrar a esola pelo seguinte motivo: \n' +
-            error.error
-        );
-      }
-    );
+    if (this.escola.id == 0) {
+      this.http.post(url, this.escola).subscribe(
+        (response) => {
+          console.log('Resposta da API:', response);
+          this.toastr.success('Escola cadastrada com sucesso!');
+          this.listarEscolas();
+          this.fecharModal();
+        },
+        (error) => {
+          console.error('Erro na requisição:', error);
+          this.toastr.error(
+            'Não foi possível cadastrar a esola pelo seguinte motivo: \n' +
+              error.error
+          );
+        }
+      );
+    }
+    else{
+      this.http.put(url, this.escola).subscribe(
+        (response) => {
+          console.log('Resposta da API:', response);
+          this.toastr.success('escola atualizada com sucesso!');
+          this.listarEscolas();
+          this.fecharModal();
+        },
+        (error) => {
+          console.error('Erro na requisição:', error);
+          this.toastr.error(
+            'Não foi possível atualizar a escola pelo seguinte motivo: \n' +
+              error.error
+          );
+        }
+      );
+    }
   }
 
   listarEscolas() {
@@ -83,7 +107,8 @@ export class EscolaComponent implements OnInit {
   }
 
   editarEscola(escola: any) {
-    console.log('Editar escola:', escola);
+    this.escola =  {...escola};
+    this.abrirModal();
   }
 
   excluirEscola(escola: any) {

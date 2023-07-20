@@ -93,7 +93,7 @@
           </mat-form-field>
 
           <button type="submit" mat-raised-button color="primary">
-            {{ modoEdicao ? 'Atualizar' : 'Adicionar' }}
+            {{ escola.id > 0 ? 'Atualizar' : 'Adicionar' }}
           </button>
           <button type="button" mat-raised-button (click)="fecharModal()">Fechar</button>
         </form>
