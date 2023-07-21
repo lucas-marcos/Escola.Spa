@@ -8,13 +8,13 @@ body, html, escola-app {
   display: flex;
   flex-direction: column;
 }
-.example-container {
+.container-nav {
   height: 500px;
   height: 90vh;
   width: 100%;
   border: 1px solid rgba(0, 0, 0, 0.5);
 }
-.example-sidenav-content {
+.sidenav-content {
   display: flex;
   height: 100%;
   width: 100%;
@@ -23,7 +23,7 @@ body, html, escola-app {
   padding: 24px;
 }
 
-.example-sidenav {
+.sidenav {
    user-select: none;
    min-width: 220px;
 }
