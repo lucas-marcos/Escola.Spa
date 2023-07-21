@@ -108,7 +108,7 @@ export class EscolaComponent implements OnInit {
         this.listarEscolas();
       },
       (error: any | HttpErrorResponse) => {
-        this.toastr.success('Não foi possível remover a esola!');
+        this.toastr.error('Não foi possível remover a escola!');
 
         console.error('Erro na requisição:', error);
       }
