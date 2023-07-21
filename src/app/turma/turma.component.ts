@@ -96,6 +96,25 @@ export class TurmaComponent implements OnInit {
     );
   }
 
+excluirTurma(turma: any){
+  let url = 'https://localhost:7009/Turma/' + turma.id;
+
+  this.http.delete(url).subscribe(
+    (result) => {
+      this.toastr.success(
+        'Turma deletada com sucesso!'
+      );
+      this.listarTurmas();
+    },
+    (error) => {
+      this.toastr.error(
+        'Não foi possível deletar a turmas! \n' + error.error
+      );
+      console.error(error);
+    }
+  );
+}
+
   editarTurma(turma: any) {
     this.turma = { ...turma };
     this.abrirModal();
