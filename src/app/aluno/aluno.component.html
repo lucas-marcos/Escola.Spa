@@ -1,0 +1,59 @@
+<div class="container">
+  <h1 class="mat-h1 text-center mb-4">Lista de Alunos</h1>
+
+
+  <button mat-raised-button color="primary" (click)="abrirModal()" class="mb-4">Adicionar Alunos</button>
+</div>
+
+
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{ 'd-block': modalAberto }">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title mat-h3">Cadastro de Aluno</h5>
+        <button type="button" class="close" (click)="fecharModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="realizarRequisicao()" class="mb-4">
+           <mat-form-field class="form-group col-12">
+            <mat-label>Nome:</mat-label>
+            <input matInput type="text" id="nome" name="nome" [(ngModel)]="aluno.nome" required>
+          </mat-form-field>
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>Cpf:</mat-label>
+            <input matInput type="text" id="cpf" name="cpf" [(ngModel)]="aluno.cpf" required>
+          </mat-form-field>
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>Endereco:</mat-label>
+            <input matInput type="text" id="endereco" name="endereco" [(ngModel)]="aluno.endereco" required>
+          </mat-form-field>
+
+
+          <mat-form-field class="form-group col-12">
+            <mat-label>Idade:</mat-label>
+            <input matInput type="text" id="idade" name="idade" [(ngModel)]="aluno.idade" required>
+          </mat-form-field>
+
+
+
+          <!-- <mat-form-field class="form-group col-12">
+            <mat-label>Escola:</mat-label>
+            <mat-select [(ngModel)]="turma.escolaId" name="escolaId" required>
+              <mat-option *ngFor="let escola of escolas" [value]="escola.id">{{ escola.nome }}</mat-option>
+            </mat-select>
+          </mat-form-field> -->
+
+          <button type="submit" mat-raised-button color="primary">
+            {{ aluno.id > 0 ? 'Atualizar' : 'Adicionar' }}
+          </button>
+          <button type="button" mat-raised-button (click)="fecharModal()">Fechar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

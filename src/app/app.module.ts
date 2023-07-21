@@ -26,12 +26,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { EscolaComponent } from './escola/escola.component';
 import { TurmaComponent } from './turma/turma.component';
 import { CommonModule } from '@angular/common';
+import { AlunoComponent } from './aluno/aluno.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EscolaComponent,
     TurmaComponent,
+    AlunoComponent,
   ],
   imports: [
     BrowserModule,
