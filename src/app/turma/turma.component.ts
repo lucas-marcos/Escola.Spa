@@ -1,8 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { TurmaService } from '../turma.service';
 import { EscolaService } from '../escola.service';
-import { ResourceLoader } from '@angular/compiler';
 
 @Component({
   selector: 'app-turma',
@@ -18,8 +17,8 @@ export class TurmaComponent implements OnInit {
   displayedColumns: string[] = ['nome', 'numero', 'descricao', 'escola', 'acao'];
 
   constructor(
-    private http: HttpClient,
     private toastr: ToastrService,
+    private turmaService: TurmaService,
     private escolaService: EscolaService
   ) {}
 
@@ -40,9 +39,7 @@ export class TurmaComponent implements OnInit {
   }
 
   fecharModal() {
-    this.turma = {id: 0,nome: '',numero: 0,descricao: '',escolaId: 0  };
-
-
+    this.turma = { id: 0, nome: '', numero: 0, descricao: '', escolaId: 0 };
     this.modalAberto = false;
   }
 
@@ -51,10 +48,8 @@ export class TurmaComponent implements OnInit {
   }
 
   realizarRequisicao() {
-    let url = 'https://localhost:7009/Turma';
-
     if (this.turma.id == 0) {
-      this.http.post(url, this.turma).subscribe(
+      this.turmaService.cadastrarTurma(this.turma).subscribe(
         (result) => {
           this.toastr.success('Turma cadastrada com sucesso!');
           this.fecharModal();
@@ -66,9 +61,9 @@ export class TurmaComponent implements OnInit {
         }
       );
     } else {
-      this.http.put(url, this.turma).subscribe(
+      this.turmaService.editarTurma(this.turma).subscribe(
         (result) => {
-          this.toastr.success('Turma editaa com sucesso!');
+          this.toastr.success('Turma editada com sucesso!');
           this.fecharModal();
           this.listarTurmas();
         },
@@ -81,9 +76,7 @@ export class TurmaComponent implements OnInit {
   }
 
   listarTurmas() {
-    let url = 'https://localhost:7009/Turma';
-
-    this.http.get<any[]>(url).subscribe(
+    this.turmaService.listarTurmas().subscribe(
       (result) => {
         this.turmas = result;
       },
@@ -96,24 +89,20 @@ export class TurmaComponent implements OnInit {
     );
   }
 
-excluirTurma(turma: any){
-  let url = 'https://localhost:7009/Turma/' + turma.id;
-
-  this.http.delete(url).subscribe(
-    (result) => {
-      this.toastr.success(
-        'Turma deletada com sucesso!'
-      );
-      this.listarTurmas();
-    },
-    (error) => {
-      this.toastr.error(
-        'Não foi possível deletar a turmas! \n' + error.error
-      );
-      console.error(error);
-    }
-  );
-}
+  excluirTurma(turma: any) {
+    this.turmaService.excluirTurma(turma.id).subscribe(
+      (result) => {
+        this.toastr.success('Turma deletada com sucesso!');
+        this.listarTurmas();
+      },
+      (error) => {
+        this.toastr.error(
+          'Não foi possível deletar a turma! \n' + error.error
+        );
+        console.error(error);
+      }
+    );
+  }
 
   editarTurma(turma: any) {
     this.turma = { ...turma };
