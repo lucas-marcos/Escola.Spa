@@ -15,7 +15,7 @@ export class TurmaComponent implements OnInit {
   turmas: any[] = [];
   escolas: any[] = [];
 
-  displayedColumns: string[] = ['nome', 'numero', 'descricao', 'escola'];
+  displayedColumns: string[] = ['nome', 'numero', 'descricao', 'escola', 'acao'];
 
   constructor(
     private http: HttpClient,
@@ -36,11 +36,13 @@ export class TurmaComponent implements OnInit {
       this.escolas = escolas;
     });
 
-    this.obterEscolas();
     this.listarTurmas();
   }
 
   fecharModal() {
+    this.turma = {id: 0,nome: '',numero: 0,descricao: '',escolaId: 0  };
+
+
     this.modalAberto = false;
   }
 
@@ -51,16 +53,31 @@ export class TurmaComponent implements OnInit {
   realizarRequisicao() {
     let url = 'https://localhost:7009/Turma';
 
-    this.http.post(url, this.turma).subscribe(
-      (result) => {
-        this.toastr.success('Turma cadastrada com sucesso!');
-        this.fecharModal();
-      },
-      (error) => {
-        this.toastr.error('Erro ao cadastrar turma! \n' + error.error);
-        console.error(error);
-      }
-    );
+    if (this.turma.id == 0) {
+      this.http.post(url, this.turma).subscribe(
+        (result) => {
+          this.toastr.success('Turma cadastrada com sucesso!');
+          this.fecharModal();
+          this.listarTurmas();
+        },
+        (error) => {
+          this.toastr.error('Erro ao cadastrar turma! \n' + error.error);
+          console.error(error);
+        }
+      );
+    } else {
+      this.http.put(url, this.turma).subscribe(
+        (result) => {
+          this.toastr.success('Turma editaa com sucesso!');
+          this.fecharModal();
+          this.listarTurmas();
+        },
+        (error) => {
+          this.toastr.error('Erro ao editar turma! \n' + error.error);
+          console.error(error);
+        }
+      );
+    }
   }
 
   listarTurmas() {
@@ -79,5 +96,8 @@ export class TurmaComponent implements OnInit {
     );
   }
 
-  obterEscolas() {}
+  editarTurma(turma: any) {
+    this.turma = { ...turma };
+    this.abrirModal();
+  }
 }
