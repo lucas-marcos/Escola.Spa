@@ -1,10 +1,8 @@
 <div class="container">
   <h1 class="mat-h1 text-center mb-4">Lista de Escolas</h1>
 
-  <!-- Botão para abrir o modal -->
   <button mat-raised-button color="primary" (click)="abrirModal()" class="mb-4">Adicionar Escola</button>
 
-  <!-- Lista de escolas cadastradas (mesmo código do exemplo anterior) -->
   <table mat-table [dataSource]="escolas" class="mat-elevation-z8">
 
     <ng-container matColumnDef="nome">
@@ -34,7 +32,6 @@
       <td mat-cell *matCellDef="let escola" class="text-nowrap" > {{ escola.cnpj| mask: '00.000.000/0000-00' }} </td>
     </ng-container>
 
-    <!-- Coluna para os botões de ação -->
     <ng-container matColumnDef="acao">
       <th mat-header-cell *matHeaderCellDef> Ação </th>
       <td mat-cell *matCellDef="let escola" class="d-flex">
