@@ -29,6 +29,7 @@ export class AlunoComponent implements OnInit {
     turmaId: 0,
   };
   turmas: any[] = [];
+  displayedColumns: string[] = ['nome', 'cpf', 'endereco', 'idade', 'turma'];
 
   constructor(
     private http: HttpClient,
@@ -38,6 +39,7 @@ export class AlunoComponent implements OnInit {
 
   ngOnInit() {
     this.listarTurmas();
+    this.listarAlunos();
   }
 
   abrirModal() {
@@ -52,14 +54,29 @@ export class AlunoComponent implements OnInit {
     let url = 'https://localhost:7009/Aluno';
 
     if (this.aluno.id == 0) {
-      this.http.post(url, this.aluno).subscribe((result) => {
-        this.toastr.success('Aluno cadastrado com sucesso!');
-        this.fecharModal();
+      this.http.post(url, this.aluno).subscribe(
+        (result) => {
+          this.toastr.success('Aluno cadastrado com sucesso!');
+          this.fecharModal();
+        },
+        (error) => {
+          this.toastr.error('Erro ao cadastrar aluno! \n' + error.error);
+        }
+      );
+    }
+  }
+
+  listarAlunos() {
+    let url = 'https://localhost:7009/Aluno';
+
+    this.http.get<Aluno[]>(url).subscribe(
+      (result) => {
+        this.alunos = result;
       },
       (error) => {
-        this.toastr.error('Erro ao cadastrar aluno! \n' + error.error);
-      });
-    }
+        this.toastr.error('Erro ao listar alunos! \n' + error.error);
+      }
+    );
   }
 
   listarTurmas() {
