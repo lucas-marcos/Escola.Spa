@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { EscolaService } from '../escola.service';
+import { ResourceLoader } from '@angular/compiler';
 
 @Component({
   selector: 'app-turma',
@@ -10,50 +12,52 @@ import { ToastrService } from 'ngx-toastr';
 export class TurmaComponent implements OnInit {
   modalAberto: boolean = false;
   turma: any;
-  escolas: string[] = []; // Lista de Escolas disponíveis
+  escolas: any[] = []; // Lista de Escolas disponíveis
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private escolaService: EscolaService
+  ) {}
 
   ngOnInit() {
     this.turma = {
       id: 0,
       nome: '',
-      numero: '',
+      numero: 0,
       descricao: '',
-      escola: '', // Inicializa a propriedade 'escola' da turma
+      escolaId: 0,
     };
 
-    this.obterEscolas(); // Chama o método para obter a lista de Escolas disponíveis
+    this.escolaService.listarEscolas().subscribe((escolas) => {
+      this.escolas = escolas;
+    });
+
+    this.obterEscolas();
   }
 
   fecharModal() {
-    this.modalAberto = false; // Corrige o valor para fechar o modal
+    this.modalAberto = false;
   }
 
   abrirModal() {
-    this.modalAberto = true; // Corrige o valor para abrir o modal
+    this.modalAberto = true;
   }
 
   realizarRequisicao() {
-    // Implemente aqui a lógica para enviar a requisição com os dados da turma
-    // Por exemplo, usando o HttpClient para enviar um POST ou PUT
-    // Exemplo:
-    // this.http.post('/api/turma', this.turma).subscribe(response => {
-    //   this.toastr.success('Turma cadastrada com sucesso!');
-    //   this.fecharModal();
-    // }, error => {
-    //   this.toastr.error('Erro ao cadastrar turma. Por favor, tente novamente.');
-    // });
+    let url = 'https://localhost:7009/Turma';
+
+    this.http.post(url, this.turma).subscribe(
+      (result) => {
+        this.toastr.success('Turma cadastrada com sucesso!');
+        this.fecharModal();
+      },
+      (error) => {
+        this.toastr.error('Erro ao cadastrar turma! \n' + error.error);
+        console.error(error);
+      }
+    );
   }
 
-  obterEscolas() {
-    // Implemente aqui a lógica para obter a lista de Escolas disponíveis
-    // Por exemplo, usando o HttpClient para obter os dados da API
-    // Exemplo:
-    // this.http.get<string[]>('/api/escolas').subscribe(escolas => {
-    //   this.escolas = escolas;
-    // }, error => {
-    //   this.toastr.error('Erro ao obter a lista de escolas. Por favor, tente novamente.');
-    // });
-  }
+  obterEscolas() {}
 }

@@ -35,8 +35,8 @@
 
           <mat-form-field class="form-group col-12">
             <mat-label>Escola:</mat-label>
-            <mat-select [(ngModel)]="turma.escola" name="escola" required>
-              <mat-option *ngFor="let escola of escolas" [value]="escola">{{ escola }}</mat-option>
+            <mat-select [(ngModel)]="turma.escolaId" name="escolaId" required>
+              <mat-option *ngFor="let escola of escolas" [value]="escola.id">{{ escola.nome }}</mat-option>
             </mat-select>
           </mat-form-field>
 
