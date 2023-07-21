@@ -12,7 +12,10 @@ import { ResourceLoader } from '@angular/compiler';
 export class TurmaComponent implements OnInit {
   modalAberto: boolean = false;
   turma: any;
-  escolas: any[] = []; // Lista de Escolas disponíveis
+  turmas: any[] = [];
+  escolas: any[] = [];
+
+  displayedColumns: string[] = ['nome', 'numero', 'descricao', 'escola'];
 
   constructor(
     private http: HttpClient,
@@ -34,6 +37,7 @@ export class TurmaComponent implements OnInit {
     });
 
     this.obterEscolas();
+    this.listarTurmas();
   }
 
   fecharModal() {
@@ -54,6 +58,22 @@ export class TurmaComponent implements OnInit {
       },
       (error) => {
         this.toastr.error('Erro ao cadastrar turma! \n' + error.error);
+        console.error(error);
+      }
+    );
+  }
+
+  listarTurmas() {
+    let url = 'https://localhost:7009/Turma';
+
+    this.http.get<any[]>(url).subscribe(
+      (result) => {
+        this.turmas = result;
+      },
+      (error) => {
+        this.toastr.error(
+          'Não foi possível listar as turmas! \n' + error.error
+        );
         console.error(error);
       }
     );
