@@ -29,7 +29,7 @@ export class AlunoComponent implements OnInit {
     turmaId: 0,
   };
   turmas: any[] = [];
-  displayedColumns: string[] = ['nome', 'cpf', 'endereco', 'idade', 'turma'];
+  displayedColumns: string[] = ['nome', 'cpf', 'endereco', 'idade', 'turma', 'acao'];
 
   constructor(
     private http: HttpClient,
@@ -57,10 +57,23 @@ export class AlunoComponent implements OnInit {
       this.http.post(url, this.aluno).subscribe(
         (result) => {
           this.toastr.success('Aluno cadastrado com sucesso!');
+          this.listarAlunos();
           this.fecharModal();
         },
         (error) => {
           this.toastr.error('Erro ao cadastrar aluno! \n' + error.error);
+        }
+      );
+    }
+    else{
+      this.http.put(url, this.aluno).subscribe(
+        (result) => {
+          this.toastr.success('Aluno atualizado com sucesso!');
+          this.listarAlunos();
+          this.fecharModal();
+        },
+        (error) => {
+          this.toastr.error('Erro ao atualizar aluno! \n' + error.error);
         }
       );
     }
@@ -75,6 +88,25 @@ export class AlunoComponent implements OnInit {
       },
       (error) => {
         this.toastr.error('Erro ao listar alunos! \n' + error.error);
+      }
+    );
+  }
+
+  editarAluno(aluno: Aluno) {
+    this.aluno = {...aluno};
+    this.abrirModal();
+  }
+
+  excluirAluno(aluno: Aluno){
+    let url = `https://localhost:7009/Aluno/${aluno.id}`;
+
+    this.http.delete(url).subscribe(
+      (result) => {
+        this.toastr.success('Aluno excluído com sucesso!');
+        this.listarAlunos();
+      },
+      (error) => {
+        this.toastr.error('Erro ao excluir aluno! \n' + error.error);
       }
     );
   }
